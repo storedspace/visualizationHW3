@@ -68,10 +68,11 @@
           if(row.Year == NowYear){
           	source = [67.709953, 33.93911]
           	target = [+row.Longitude, +row.Latitude]
-          	topush = {type: "LineString", coordinates: [source, target]}
+          	topush = {type: "LineString", coordinates: [source, target], total:row.Total}
           	link.push(topush)
           }
         })
+
 
         // Draw the map
         svg.append("g")
@@ -90,6 +91,9 @@
             .attr("d", function(d){ return path(d)})
             .style("fill", "none")
             .style("stroke", "#69b3a2")
+            // .style("stroke", "#003049")
+            // .style("stroke-opacity", function(d) { return (d.total * 0.001); })
+            // .style("stroke-width", function(d) { return (d.total * 0.001); })
             .style("stroke-width", 2)
 
     })
