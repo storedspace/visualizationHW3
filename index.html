@@ -51,7 +51,7 @@
   function CheckYear(EnterYear){
     Promise.all([
       d3.json("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson"),  // World shape
-      d3.csv("https://raw.githubusercontent.com/storedspace/information-visualization/main/homework3/Afghanistan_origin.csv") // Position of circles
+      d3.csv("https://raw.githubusercontent.com/storedspace/visualizationHW3/master/Afghanistan.csv") // Position of circles
     ]).then( 
 
     function (initialize) {
