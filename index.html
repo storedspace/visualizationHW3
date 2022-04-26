@@ -37,7 +37,7 @@
   const svg = d3.select("svg"),
       width = +svg.attr("width"),
       height = +svg.attr("height");
-
+  
   // Map and projection
   const projection = d3.geoMercator()
       .scale(195)
@@ -54,6 +54,9 @@
     .domain([30, 100, 300, 550, 700, 900])
     .range(d3.schemeBlues[7]);
 
+  // group the map and lines
+  var container = svg.append('g')
+  
   // Load world shape AND list of connection
   function CheckYear(EnterYear){
     Promise.all([
@@ -102,9 +105,11 @@
             ColorData.set(row.code, +row.Total)
           }
         })
+        
+        
 
         // Draw the map
-        svg.append("g")
+        container
             .selectAll("path")
             .data(dataGeo.features)
             .join("path")
@@ -128,7 +133,8 @@
                 .on("mouseleave", mouseLeave)
 
         // Add the path
-        svg.selectAll("myPath")
+        container
+          .selectAll("myPath")
           .data(link)
           .join("path")
             .attr("d", function(d){ return path(d)})
@@ -141,9 +147,16 @@
 
     })
   }
-
+  var zoom = d3.zoom()
+      .scaleExtent([1, 8])
+      .on('zoom', function(event) {
+          container.selectAll('path')
+           .attr('transform', event.transform);
+  });
+  svg.call(zoom);
   // Initialize the plot
   CheckYear(1999);
-  
+
+
   </script>
 </body>
