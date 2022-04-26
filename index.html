@@ -49,24 +49,24 @@
       .projection(projection)
 
   // Data and color scale
-  // const data = new Map();
-  // const colorScale = d3.scaleThreshold()
-  //   .domain([100, 500, 1000, 1500, 2000, 2500])
-  //   .range(d3.schemeBlues[7]);
+  const ColorData = new Map();
+  const colorScale = d3.scaleThreshold()
+    .domain([100, 300, 500, 700, 900, 1100])
+    .range(d3.schemeBlues[7]);
 
   // Load world shape AND list of connection
   function CheckYear(EnterYear){
     Promise.all([
       d3.json("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson"),  // World shape
-      d3.csv("https://raw.githubusercontent.com/storedspace/visualizationHW3/master/Afghanistan.csv"/*, function(d){
-          data.set(+d.Total)
-      }*/) // Position of circles
+      d3.csv("https://raw.githubusercontent.com/storedspace/visualizationHW3/master/Afghanistan.csv") // Position of circles
     ]).then( 
 
     function (initialize) {
 
-        let topo = initialize[0];
-        let People = initialize[2];
+        var NowYear = EnterYear;
+        let dataGeo = initialize[0]//map
+        let data = initialize[1]//line
+
         let mouseOver = function(d) {
           d3.selectAll(".Country")
             .transition()
@@ -90,11 +90,6 @@
             .style("stroke", "transparent")
         }
 
-
-        var NowYear = EnterYear;
-        let dataGeo = initialize[0]//map
-        let data = initialize[1]//line
-
         //const year = [1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016];
 
         // Reformat the list of link. Note that columns in csv file are called long1, long2, lat1, lat2
@@ -103,8 +98,10 @@
           if(row.Year == NowYear){
           	source = [67.709953, 33.93911]
           	target = [+row.Longitude, +row.Latitude]
-          	topush = {type: "LineString", coordinates: [source, target], total:row.Total}
+          	topush = {type: "LineString", coordinates: [source, target]/*, total:row.Total*/}
           	link.push(topush)
+            // Set color with population
+            ColorData.set(row.code, +row.Total)
           }
         })
 
@@ -115,21 +112,25 @@
             .data(dataGeo.features)
             .join("path")
                 .attr("fill", "#b8b8b8")
-                .attr("d", path)
-
-                // set the color of each country
-                // .attr("fill", function (d) {
-                //   d.total = data.get(d.id) || 0;
-                //   return colorScale(d.total);
-                // })
+                .attr("d", d3.geoPath()
+                    .projection(projection)
+                )
+                //.style("stroke", "transparent")
                 .style("stroke", "#fff")
                 .style("stroke-width", 0)
                 .attr("class", function(d) { 
                   return "Country" 
                 })
+                // set the color of each country
+                .attr("fill", function (d) {
+                  d.total = ColorData.get(d.id) || 0;
+                  return colorScale(d.total);
+                })
                 .style("opacity", .8)
                 .on("mouseover", mouseOver )
                 .on("mouseleave", mouseLeave )
+
+
 
         // Add the path
         svg.selectAll("myPath")
@@ -143,8 +144,10 @@
             // .style("stroke-width", function(d) { return (d.total * 0.001); })
             .style("stroke-width", 2)
 
+
     })
   }
+  
   // Initialize the plot
   CheckYear(1999);
   
