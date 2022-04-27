@@ -4,9 +4,71 @@
 <!-- Load d3.js -->
 <script src="https://d3js.org/d3.v6.js"></script>
 
+<style>
+   #colourExplain{
+      text-align: left;
+      margin: 10px;
+  }
+  #blue0 {
+      width: 20px;
+      height: 20px;
+      background-color: #eff3ff;
+      display: inline-block;
+      border: 1px solid black;
+      vertical-align: text-bottom;
+  }
+  #blue1 {
+      width: 20px;
+      height: 20px;
+      background-color: #c6dbef;
+      display: inline-block;
+      border: 1px solid black;
+      vertical-align: text-bottom;
+  }
+  #blue2 {
+      width: 20px;
+      height: 20px;
+      background-color: #9ecae1;
+      display: inline-block;
+      border: 1px solid black;
+      vertical-align: text-bottom;
+  }
+  #blue3 {
+      width: 20px;
+      height: 20px;
+      background-color: #6baed6;
+      display: inline-block;
+      border: 1px solid black;
+      vertical-align: text-bottom;
+  }
+  #blue4 {
+      width: 20px;
+      height: 20px;
+      background-color: #3182bd;
+      display: inline-block;
+      border: 1px solid black;
+      vertical-align: text-bottom;
+  }
+  #blue5 {
+      width: 20px;
+      height: 20px;
+      background-color: #08519c;
+      display: inline-block;
+      border: 1px solid black;
+      vertical-align: text-bottom;
+  }
+  #route {
+      width: 20px;
+      height: 20px;
+      background-color: #FFAA33;
+      display: inline-block;
+      border: 1px solid black;
+      vertical-align: text-bottom;
+  }
+</style>
 
 <body>
-  <!-- button of updating data year -->
+ <!-- button of updating data year -->
   <div style="text-align:center;">
       <button onclick="CheckYear(1999);" style="text-align:center;">1999</button>
       <button onclick="CheckYear(2000);" style="text-align:center;">2000</button>
@@ -50,7 +112,7 @@
   // Data and color scale
   const ColorData = new Map();
   const colorScale = d3.scaleThreshold()
-    .domain([50, 150, 300, 550, 700, 1000])
+    .domain([10, 120, 300, 550, 700, 1000])
     .range(d3.schemeBlues[7]);
 
   // group the map and lines
@@ -100,11 +162,11 @@
           if(typeof(Country.get(i.id)) != "undefined"){
             d3.selectAll(".Country")
               .transition()
-              .duration(200)
+              .duration(100)
               .style("opacity", .5)
             d3.select(this)
               .transition()
-              .duration(200)
+              .duration(100)
               .style("opacity", 1)
               .style("stroke", "black")
             tooltip
@@ -118,11 +180,11 @@
         let mouseLeave = function(d) {
           d3.selectAll(".Country")
             .transition()
-            .duration(200)
+            .duration(100)
             .style("opacity", .8)
           d3.select(this)
             .transition()
-            .duration(200)
+            .duration(100)
             .style("stroke", "transparent")
           
         };
@@ -174,6 +236,7 @@
 
     })
   }
+  
   var zoom = d3.zoom()
       .scaleExtent([1, 8])
       .on('zoom', function(event) {
@@ -186,4 +249,21 @@
 
 
   </script>
+  <span><font size="3" >圖例</font></body></span>
+  <div id="colourExplain">
+    <div id="blue0"></div>
+    <span>： 10人 </span>
+    <div id="blue1"></div>
+    <span>： 120人 </span>
+    <div id="blue2"></div>
+    <span>： 300人 </span>
+    <div id="blue3"></div>
+    <span>： 550人 </span>
+    <div id="blue4"></div>
+    <span>： 700人 </span>
+    <div id="blue5"></div>
+    <span>： 1000人 </span><br>
+    <div id="route"></div>
+    <span>： 難民的遷移路線</span>
+
 </body>
