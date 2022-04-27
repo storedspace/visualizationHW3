@@ -130,7 +130,7 @@
     const tooltip = d3.select("body")
       .append("div")
       .attr("class", "tooltip")
-      .style("opacity", 0.0)
+      .style("opacity", 0)
       .style("background-color", "#ECFFFF")
       .style("border", "solid")
       .style("border-width", "2px")
@@ -170,17 +170,20 @@
             if(typeof(Country.get(i.id)) != "undefined"){
               d3.selectAll(".Country")
                 .transition()
-                .duration(100)
+                .duration(200)
                 .style("opacity", .5)
               d3.select(this)
                 .transition()
-                .duration(100)
+                .duration(200)
                 .style("opacity", 1)
                 .style("stroke", "black")
               tooltip
+                .transition()
+                .duration(200)
+                .style("opacity", 1)
+              tooltip
                 .style("left", event.pageX - 50 + "px")
                 .style("top", event.pageY - 70 + "px")
-                .style("opacity", 1)
                 .html("西元" + NowYear + "年</br>逃到" + (Country.get(i.id)) + "的阿富汗難民人數有" + (ColorData.get(i.id) || 0) + "人");
             }
           };
@@ -188,13 +191,12 @@
           let mouseLeave = function(d) {
             d3.selectAll(".Country")
               .transition()
-              .duration(100)
+              .duration(200)
               .style("opacity", .8)
             d3.select(this)
               .transition()
-              .duration(100)
+              .duration(200)
               .style("stroke", "transparent")
-            
           };
 
           let mouseOut = function(d){
