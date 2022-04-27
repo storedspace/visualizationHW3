@@ -1,5 +1,13 @@
 <!DOCTYPE html>
-<meta charset="utf-8">
+
+<head>
+  <meta charset="utf-8">
+
+  <div style="text-align:center;"><font face="微軟正黑體"> 
+      <font color = #003D79><h1><b>阿富汗難民各年度逃難目的地</b></h1>
+    </div></font></font>
+
+</head>
 
 <!-- Load d3.js -->
 <script src="https://d3js.org/d3.v6.js"></script>
@@ -95,112 +103,112 @@
 
   <script>
 
-  // The svg
-  const svg = d3.select("svg"),
-    width = +svg.attr("width"),
-    height = +svg.attr("height");
-  
-  // Map and projection
-  const projection = d3.geoMercator()
-    .scale(195)
-    .translate([width/2.2, height/2*1.2])
+    // The svg
+    const svg = d3.select("svg"),
+      width = +svg.attr("width"),
+      height = +svg.attr("height");
+    
+    // Map and projection
+    const projection = d3.geoMercator()
+      .scale(195)
+      .translate([width/2.2, height/2*1.2])
 
-  // A path generator
-  const path = d3.geoPath()
-    .projection(projection)
+    // A path generator
+    const path = d3.geoPath()
+      .projection(projection)
 
-  // Data and color scale
-  const ColorData = new Map();
-  const colorScale = d3.scaleThreshold()
-    .domain([10, 120, 300, 550, 700, 1000])
-    .range(d3.schemeBlues[7]);
+    // Data and color scale
+    const ColorData = new Map();
+    const colorScale = d3.scaleThreshold()
+      .domain([10, 120, 300, 550, 700, 1000])
+      .range(d3.schemeBlues[7]);
 
-  // group the map and lines
-  var container = svg.append('g');
-  
-  // Create tooltip
-  const tooltip = d3.select("body")
-    .append("div")
-    .attr("class", "tooltip")
-    .style("opacity", 0.0)
-    .style("background-color", "#ECFFFF")
-    .style("border", "solid")
-    .style("border-width", "2px")
-    .style("border-radius", "5px")
-    .style("padding", "10px")
-    .style("position", "absolute")
-    .style("font-family", "Microsoft JhengHei");
+    // group the map and lines
+    var container = svg.append('g');
+    
+    // Create tooltip
+    const tooltip = d3.select("body")
+      .append("div")
+      .attr("class", "tooltip")
+      .style("opacity", 0.0)
+      .style("background-color", "#ECFFFF")
+      .style("border", "solid")
+      .style("border-width", "2px")
+      .style("border-radius", "5px")
+      .style("padding", "10px")
+      .style("position", "absolute")
+      .style("font-family", "Microsoft JhengHei");
 
-  const Country = new Map();
+    const Country = new Map();
 
-  // Load world shape AND list of connection
-  function CheckYear(EnterYear){
-    Promise.all([
-      d3.json("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson"),  // World shape
-      d3.csv("https://raw.githubusercontent.com/storedspace/visualizationHW3/master/Afghanistan.csv") // Position of circles
-    ]).then(function (initialize) {
+    // Load world shape AND list of connection
+    function CheckYear(EnterYear){
+      Promise.all([
+        d3.json("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson"),  // World shape
+        d3.csv("https://raw.githubusercontent.com/storedspace/visualizationHW3/master/Afghanistan.csv") // Position of circles
+      ]).then(function (initialize) {
 
-        var NowYear = EnterYear;
-        let dataGeo = initialize[0]; //map
-        let data = initialize[1]; //line
+          var NowYear = EnterYear;
+          let dataGeo = initialize[0]; //map
+          let data = initialize[1]; //line
 
-        // Reformat the list of link.
-        const link = []
-        data.forEach(function(row){
-          if(row.Year == NowYear){
-            source = [67.709953, 33.93911]
-            target = [+row.Longitude, +row.Latitude]
-            topush = {type: "LineString", coordinates: [source, target], dest:row.Destination, total:row.Total}
-            link.push(topush)
-            // Set color with population
-            ColorData.set(row.code, +row.Total)
-            Country.set(row.code, row.Destination)
-          }
-        });
+          // Reformat the list of link.
+          const link = []
+          data.forEach(function(row){
+            if(row.Year == NowYear){
+              source = [67.709953, 33.93911]
+              target = [+row.Longitude, +row.Latitude]
+              topush = {type: "LineString", coordinates: [source, target], dest:row.Destination, total:row.Total}
+              link.push(topush)
+              // Set color with population
+              ColorData.set(row.code, +row.Total)
+              Country.set(row.code, row.Destination)
+            }
+          });
 
-        let mouseOver = function(d, i) {
-          if(typeof(Country.get(i.id)) != "undefined"){
+          let mouseOver = function(d, i) {
+            if(typeof(Country.get(i.id)) != "undefined"){
+              d3.selectAll(".Country")
+                .transition()
+                .duration(100)
+                .style("opacity", .5)
+              d3.select(this)
+                .transition()
+                .duration(100)
+                .style("opacity", 1)
+                .style("stroke", "black")
+              tooltip
+                .style("left", event.pageX - 50 + "px")
+                .style("top", event.pageY - 70 + "px")
+                .style("opacity", 1)
+                .html("西元" + NowYear + "年</br>逃到" + (Country.get(i.id)) + "的阿富汗難民人數有" + (ColorData.get(i.id) || 0) + "人");
+            }
+          };
+
+          let mouseLeave = function(d) {
             d3.selectAll(".Country")
               .transition()
               .duration(100)
-              .style("opacity", .5)
+              .style("opacity", .8)
             d3.select(this)
               .transition()
               .duration(100)
-              .style("opacity", 1)
-              .style("stroke", "black")
+              .style("stroke", "transparent")
+            
+          };
+
+          let mouseOut = function(d){
             tooltip
-            .style("left", event.pageX - 50 + "px")
-            .style("top", event.pageY - 70 + "px")
-            .style("opacity", 1)
-            .html("西元" + NowYear + "年</br>逃到" + (Country.get(i.id)) + "的阿富汗難民人數有" + (ColorData.get(i.id) || 0) + "人");
+              .style("opacity", 0);
           }
-        };
 
-        let mouseLeave = function(d) {
-          d3.selectAll(".Country")
-            .transition()
-            .duration(100)
-            .style("opacity", .8)
-          d3.select(this)
-            .transition()
-            .duration(100)
-            .style("stroke", "transparent")
-          
-        };
+          //const year = [1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016];
 
-        let mouseOut = function(d){
-          tooltip
-            .style("opacity", 0);
-        }
-
-        //const year = [1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016];
-
-        // Draw the map
-        container
-          .selectAll("path")
-          .data(dataGeo.features)
-          .join("path")
+          // Draw the map
+          container
+            .selectAll("path")
+            .data(dataGeo.features)
+            .join("path")
               .attr("fill", "#b8b8b8")
               .attr("d", d3.geoPath()
                   .projection(projection)
@@ -217,38 +225,41 @@
               })
               //.style("stroke", "transparent")
               .style("opacity", .8)
-              .on("mouseover", mouseOver)
-              .on("mouseleave", mouseLeave)
-              .on("mouseout", mouseOut);
+            .on("mouseover", mouseOver)
+            .on("mouseleave", mouseLeave)
+            .on("mouseout", mouseOut);
 
-        // Add the path
-        container
-          .selectAll("myPath")
-          .data(link)
-          .join("path")
-            .attr("d", function(d){ return path(d)})
-            .style("fill", "none")
-            .style("stroke", "#FFAA33")
-            // .style("stroke", "#003049")
-            // .style("stroke-opacity", function(d) { return (d.total * 0.001); })
-            // .style("stroke-width", function(d) { return (d.total * 0.001); })
-            .style("stroke-width", 2);
+          // Add the path
+          container
+            .selectAll("myPath")
+            .data(link)
+            .join("path")
+              .attr("d", function(d){ return path(d)})
+              .style("fill", "none")
+              .style("stroke", "#FFAA33")
+              // .style("stroke", "#003049")
+              // .style("stroke-opacity", function(d) { return (d.total * 0.001); })
+              // .style("stroke-width", function(d) { return (d.total * 0.001); })
+              .style("stroke-width", 2);
 
-    })
-  }
-  
-  var zoom = d3.zoom()
-      .scaleExtent([1, 8])
-      .on('zoom', function(event) {
-          container.selectAll('path')
-           .attr('transform', event.transform);
-  });
-  svg.call(zoom);
-  // Initialize the plot
-  CheckYear(1999);
+      })
+    }
+    
+    var zoom = d3.zoom()
+        .scaleExtent([1, 8])
+        .on('zoom', function(event) {
+            container.selectAll('path')
+        .attr('transform', event.transform);
+    });
+    //svg.call(zoom);
+
+    // Initialize the plot
+    CheckYear(1999);
 
 
   </script>
+  
+  <font face="微軟正黑體"> 
   <span><font size="3" >圖例</font></body></span>
   <div id="colourExplain">
     <div id="blue0"></div>
@@ -265,5 +276,6 @@
     <span>： 1000人 </span><br>
     <div id="route"></div>
     <span>： 難民的遷移路線</span>
+  </div></font>
 
 </body>
