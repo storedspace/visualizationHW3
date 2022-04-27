@@ -29,34 +29,48 @@
   </div>
 
   <!-- Create an element where the map will take place -->
-  <svg id="my_dataviz" width="1200" height="750"></svg>
+  <svg id="my_dataviz" width="1580" height="900"></svg>
 
   <script>
 
   // The svg
   const svg = d3.select("svg"),
-      width = +svg.attr("width"),
-      height = +svg.attr("height");
+    width = +svg.attr("width"),
+    height = +svg.attr("height");
   
   // Map and projection
   const projection = d3.geoMercator()
-      .scale(195)
-      .center([0,15])
-      .translate([width/2.2, height/2*1.2])
+    .scale(195)
+    .translate([width/2.2, height/2*1.2])
 
   // A path generator
   const path = d3.geoPath()
-      .projection(projection)
+    .projection(projection)
 
   // Data and color scale
   const ColorData = new Map();
   const colorScale = d3.scaleThreshold()
-    .domain([30, 100, 300, 550, 700, 900])
+    .domain([50, 150, 300, 550, 700, 1000])
     .range(d3.schemeBlues[7]);
 
   // group the map and lines
-  var container = svg.append('g')
+  var container = svg.append('g');
   
+  // Create tooltip
+  const tooltip = d3.select("body")
+    .append("div")
+    .attr("class", "tooltip")
+    .style("opacity", 0.0)
+    .style("background-color", "#ECFFFF")
+    .style("border", "solid")
+    .style("border-width", "2px")
+    .style("border-radius", "5px")
+    .style("padding", "10px")
+    .style("position", "absolute")
+    .style("font-family", "Microsoft JhengHei");
+
+  const Country = new Map();
+
   // Load world shape AND list of connection
   function CheckYear(EnterYear){
     Promise.all([
@@ -65,20 +79,41 @@
     ]).then(function (initialize) {
 
         var NowYear = EnterYear;
-        let dataGeo = initialize[0] //map
-        let data = initialize[1] //line
+        let dataGeo = initialize[0]; //map
+        let data = initialize[1]; //line
 
-        let mouseOver = function(d) {
-          d3.selectAll(".Country")
-            .transition()
-            .duration(200)
-            .style("opacity", .5)
-          d3.select(this)
-            .transition()
-            .duration(200)
+        // Reformat the list of link.
+        const link = []
+        data.forEach(function(row){
+          if(row.Year == NowYear){
+            source = [67.709953, 33.93911]
+            target = [+row.Longitude, +row.Latitude]
+            topush = {type: "LineString", coordinates: [source, target], dest:row.Destination, total:row.Total}
+            link.push(topush)
+            // Set color with population
+            ColorData.set(row.code, +row.Total)
+            Country.set(row.code, row.Destination)
+          }
+        });
+
+        let mouseOver = function(d, i) {
+          if(typeof(Country.get(i.id)) != "undefined"){
+            d3.selectAll(".Country")
+              .transition()
+              .duration(200)
+              .style("opacity", .5)
+            d3.select(this)
+              .transition()
+              .duration(200)
+              .style("opacity", 1)
+              .style("stroke", "black")
+            tooltip
+            .style("left", event.pageX - 50 + "px")
+            .style("top", event.pageY - 70 + "px")
             .style("opacity", 1)
-            .style("stroke", "black")
-        }
+            .html("西元" + NowYear + "年</br>逃到" + (Country.get(i.id)) + "的阿富汗難民人數有" + (ColorData.get(i.id) || 0) + "人");
+          }
+        };
 
         let mouseLeave = function(d) {
           d3.selectAll(".Country")
@@ -89,48 +124,40 @@
             .transition()
             .duration(200)
             .style("stroke", "transparent")
+          
+        };
+
+        let mouseOut = function(d){
+          tooltip
+            .style("opacity", 0);
         }
 
         //const year = [1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016];
 
-        // Reformat the list of link.
-        const link = []
-        data.forEach(function(row){
-          if(row.Year == NowYear){
-          	source = [67.709953, 33.93911]
-          	target = [+row.Longitude, +row.Latitude]
-          	topush = {type: "LineString", coordinates: [source, target]/*, total:row.Total*/}
-          	link.push(topush)
-            // Set color with population
-            ColorData.set(row.code, +row.Total)
-          }
-        })
-        
-        
-
         // Draw the map
         container
-            .selectAll("path")
-            .data(dataGeo.features)
-            .join("path")
-                .attr("fill", "#b8b8b8")
-                .attr("d", d3.geoPath()
-                    .projection(projection)
-                )
-                .style("stroke", "#fff")
-                .style("stroke-width", 0)
-                .attr("class", function(d) { 
-                  return "Country" 
-                })
-                // set the color of each country
-                .attr("fill", function (d) {
-                  d.total = ColorData.get(d.id) || 0;
-                  return colorScale(d.total);
-                })
-                //.style("stroke", "transparent")
-                .style("opacity", .8)
-                .on("mouseover", mouseOver)
-                .on("mouseleave", mouseLeave)
+          .selectAll("path")
+          .data(dataGeo.features)
+          .join("path")
+              .attr("fill", "#b8b8b8")
+              .attr("d", d3.geoPath()
+                  .projection(projection)
+              )
+              .style("stroke", "black")
+              .style("stroke-width", 0)
+              .attr("class", function(d) { 
+                return "Country" 
+              })
+              // set the color of each country
+              .attr("fill", function (d) {
+                d.total = ColorData.get(d.id) || 0;
+                return colorScale(d.total);
+              })
+              //.style("stroke", "transparent")
+              .style("opacity", .8)
+              .on("mouseover", mouseOver)
+              .on("mouseleave", mouseLeave)
+              .on("mouseout", mouseOut);
 
         // Add the path
         container
@@ -139,11 +166,11 @@
           .join("path")
             .attr("d", function(d){ return path(d)})
             .style("fill", "none")
-            .style("stroke", "#69b3a2")
+            .style("stroke", "#FFAA33")
             // .style("stroke", "#003049")
             // .style("stroke-opacity", function(d) { return (d.total * 0.001); })
             // .style("stroke-width", function(d) { return (d.total * 0.001); })
-            .style("stroke-width", 2)
+            .style("stroke-width", 2);
 
     })
   }
