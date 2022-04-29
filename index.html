@@ -199,9 +199,10 @@
           <li><a class="w3-btn testbtn" onclick="CheckYear(2015);">2015</button></a></li>
           <li><a class="w3-btn testbtn" onclick="CheckYear(2016);">2016</button></a></li>
           <li><a class="w3-btn testbtn" onclick="CheckYear(2017);">2017</button></a></li>
-           <li><a class="w3-btn testbtn" onclick="CheckYear(2018);">2018</button></a></li>
-            <li><a class="w3-btn testbtn" onclick="CheckYear(2019);">2019</button></a></li>
-             <li><a class="w3-btn testbtn" onclick="CheckYear(2020);">2020</button></a></li>
+          <li><a class="w3-btn testbtn" onclick="CheckYear(2018);">2018</button></a></li>
+          <li><a class="w3-btn testbtn" onclick="CheckYear(2019);">2019</button></a></li>
+          <li><a class="w3-btn testbtn" onclick="CheckYear(2020);">2020</button></a></li>
+          
           <!-- Create legend of number of refugee migration -->
           <font face="微軟正黑體">
             <br><br>
@@ -381,14 +382,10 @@
       }
     );
     function resetZoom(){
-      // d3.select("button")
-      //           .on("click", () =>{
-      //             // Apply the transform:                                               // Create an identity transform
       container.transition()
-          .duration(750)
-          .call(zoom.transform, d3.zoomIdentity);
-                // });
-        };
+        .duration(750)
+        .call(zoom.transform, d3.zoomIdentity);
+    };
     svg.select("g").call(zoom).on("wheelzoom", null);
 
     // Initialize the plot
