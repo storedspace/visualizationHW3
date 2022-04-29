@@ -259,7 +259,7 @@
       .projection(projection)
 
     // Data and color scale
-    const ColorData = new Map();
+    
     const colorScale = d3.scaleThreshold()
       .domain([10, 120, 300, 550, 700, 1000])
       .range(d3.schemeBlues[7]);
@@ -280,7 +280,7 @@
       .style("position", "absolute")
       .style("font-family", "Microsoft JhengHei");
 
-    const Country = new Map();
+    
 
     // Load world shape AND list of connection
     function CheckYear(EnterYear) {
@@ -289,6 +289,8 @@
         d3.csv("https://raw.githubusercontent.com/storedspace/visualizationHW3/master/Afghanistan.csv") // Position of circles
       ]).then(function(initialize) {
 
+        const ColorData = new Map();
+        const Country = new Map();
         var NowYear = EnterYear;
         let dataGeo = initialize[0]; //map
         let data = initialize[1]; //line
