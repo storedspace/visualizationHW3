@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 
 <head>
-    <!-- <div style="text-align:center;">
-        <font face="微軟正黑體">
-            <font color=#003D79>
-                <h1><b>阿富汗難民各年度逃難目的地</b></h1> -->
+    <div style="text-align:center;">
+      <font face="微軟正黑體" font color=#003D79>
+         <h1><b>阿富汗難民逃難目的地分析</b></h1>
+      </font>
     </div>
-    </font>
-    </font>
+    
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>03_HW3</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -175,13 +174,15 @@
 
             </div>
         </div>
+      </div>
+    </div>
     </div>
     <br><br><br>
     <div class="w3-row-padding ">
       <header class="w3-container w3-blue-grey w3-center">
-        <h2>阿富汗難民各年度逃難目的地 (修正版)</h2>
+        <h2>修正版：阿富汗難民各年度逃難目的地</h2>
       </header>
-      <div class="w3-card-2">
+      <div class="w3-card-3">
           <ul class="w3-navbar" style="background-color: black;">
             <li><a class="w3-btn testbtn" onclick="CheckYear(1999);">1999</button></a></li>
             <li><a class="w3-btn testbtn" onclick="CheckYear(2000);">2000</button></a></li>
@@ -204,24 +205,24 @@
             <li><a class="w3-btn testbtn" onclick="CheckYear(2017);">2017</button></a></li>
             <!-- Create legend of number of refugee migration -->
             <font face="微軟正黑體">
-                <br><br>
-                <h3 class="w3-left" style="color:white;">&nbsp;圖例</h3><br><br>
-                <div id="colourExplain">
-                    <div id="blue0"></div>
-                    <span style="color:white;">：10人 </span>
-                    <div id="blue1"></div>
-                    <span style="color:white;">：120人 </span>
-                    <div id="blue2"></div>
-                    <span style="color:white;">：300人 </span>
-                    <div id="blue3"></div>
-                    <span style="color:white;">：550人 </span>
-                    <div id="blue4"></div>
-                    <span style="color:white;">：700人 </span>
-                    <div id="blue5"></div>
-                    <span style="color:white;">：1000人 </span><br>
-                    <div id="route"></div>
-                    <span style="color:white;">：難民的遷移路線</span>
-                </div>
+              <br><br>
+              <h3 class="w3-left" style="color:white;">&nbsp;圖例</h3><br><br>
+              <div id="colourExplain">
+                  <div id="blue0"></div>
+                  <span style="color:white;">：10人 </span>
+                  <div id="blue1"></div>
+                  <span style="color:white;">：120人 </span>
+                  <div id="blue2"></div>
+                  <span style="color:white;">：300人 </span>
+                  <div id="blue3"></div>
+                  <span style="color:white;">：550人 </span>
+                  <div id="blue4"></div>
+                  <span style="color:white;">：700人 </span>
+                  <div id="blue5"></div>
+                  <span style="color:white;">：1000人 以上</span><br>
+                  <div id="route"></div>
+                  <span style="color:white;">：難民的遷移路線</span>
+              </div>
             </font>
             <!-- Create an element where the map will take place -->
             <svg id="my_dataviz" width="1400" height="850"></svg>
