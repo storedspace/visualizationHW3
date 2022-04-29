@@ -158,17 +158,29 @@
     <div class="w3-half">
       <div class="w3-card-2">
         <!-- <img src="./CSS/img_car.jpg" alt="Car" style="width:100%"> -->
-        <div class="w3-container" style="font-size:18px;">
+        <div class="w3-container" style="font-size:17px;">
           <div class="w3-container w3-center w3-blue-grey">
             <h2>分析與問題</h2>
           </div>
           <ol>
-            <li>因為不同國家收留的難民數量差異很大，導致長條圖的最大值會讓軸的間距太大，收留數量少的國家無法精確地指出人數</li><br>
-            <li>左圖是原本新聞呈現的長條圖，沒有說明上面的數字代表人數（橫軸沒有單位呈現）</li><br>
-            <li>阿富汗的難民事實上不只逃往這些國家，長條圖不僅無法列出所有難民逃往的國家，也沒有空間感，在視覺上無法輕易地看出逃亡方向</li><br>
-            <li>有些新聞媒體漸漸地開始轉型做付費的深度報導，阿富汗難民的問題事實上一直存在著，如果要做深度報導，分析他們動向的趨勢必須要是長期追蹤，而在過往，即時新聞往往只在「難民問題」為熱潮時才會關心他們的去向，所以無法看出阿富汗難民在長期下，可能因一些外在因素影響逃亡路線的趨勢或改變。</li><br><br><br><br>
+            <li>因為不同國家收留的難民數量差異很大，導致長條圖的最大值會讓軸的間距太大，收留數量少的國家無法精確地指出人數</li>
+            <li>左圖是原本新聞呈現的長條圖，沒有說明上面的數字代表人數（橫軸沒有單位呈現）</li>
+            <li>阿富汗的難民事實上不只逃往這些國家，長條圖不僅無法列出所有難民逃往的國家，也沒有空間感，在視覺上無法輕易地看出逃亡方向</li>
+            <li>有些新聞媒體漸漸地開始轉型做付費的深度報導，阿富汗難民的問題事實上一直存在著，如果要做深度報導，分析他們動向的趨勢必須要是長期追蹤，而在過往，即時新聞往往只在「難民問題」為熱潮時才會關心他們的去向，所以無法看出阿富汗難民在長期下，可能因一些外在因素影響逃亡路線的趨勢或改變。</li>
+          </ol>
+          <div class="w3-container w3-center w3-blue-grey">
+            <h2>修正版本及使用說明</h2>
+          </div>
+          <ol>
+            <li>利用不同深淺的色塊將各國家難民人數做區分</li>
+            <li>橘黃色的線代表遷移路線</li>
+            <li>加上圖例及單位人數說明</li>
+            <li>新增多個年份可做選擇</li>
+            <li>點兩下國家可以放大有恢復鈕(reset button)可以回到原本地圖大小</li>
+            <li>滑鼠移到該國家，區塊會聚焦，並顯示相對應的國家難民人數</li>
           </ol>
         </div>
+        <br><br><br>
       </div>
     </div>
     </div>
@@ -201,7 +213,7 @@
           <li><a class="w3-btn testbtn" onclick="CheckYear(2017);">2017</button></a></li>
           <li><a class="w3-btn testbtn" onclick="CheckYear(2018);">2018</button></a></li>
           <li><a class="w3-btn testbtn" onclick="CheckYear(2019);">2019</button></a></li>
-          <li><a class="w3-btn testbtn" onclick="CheckYear(2020);">2020</button></a></li>
+          <!-- <li><a class="w3-btn testbtn" onclick="CheckYear(2020);">2020</button></a></li> -->
           
           <!-- Create legend of number of refugee migration -->
           <font face="微軟正黑體">
