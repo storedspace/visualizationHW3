@@ -377,13 +377,22 @@
           .attr('transform', event.transform);
       }
     );
-    svg.call(zoom).on("wheelzoom", null);
+    function resetZoom(){
+      // d3.select("button")
+      //           .on("click", () =>{
+      //             // Apply the transform:                                               // Create an identity transform
+      container.transition()
+          .duration(750)
+          .call(zoom.transform, d3.zoomIdentity);
+                // });
+        };
+    svg.select("g").call(zoom).on("wheelzoom", null);
 
     // Initialize the plot
     CheckYear(1999);
 
     </script>
-
+    <button id="reset" onclick ="resetZoom();">reset</button>
     <div style="text-align:center;">
         <p>難民數據來源：<a href="https://www.kaggle.com/code/stansilas/refugee-analysis/data?select=asylum_seekers_monthly.csv">https://www.kaggle.com/code/stansilas/refugee-analysis/data?select=asylum_seekers_monthly.csv</a></p>
     </div>

@@ -174,7 +174,6 @@
     <li><a class="w3-btn testbtn" onclick="CheckYear(2015);">2015</button></a></li>
     <li><a class="w3-btn testbtn" onclick="CheckYear(2016);">2016</button></a></li>
     <li><a class="w3-btn testbtn" onclick="CheckYear(2017);">2017</button></a></li>
-
     
     <!-- Create legend of number of refugee migration -->
     <font face="微軟正黑體"> 
@@ -343,13 +342,15 @@
               .style("stroke-width", 2);
       })
     }
-    d3.select("button")
-              .on("click", () =>{
-                // Apply the transform:                                               // Create an identity transform
-                container.transition()
-                    .duration(750)
-                    .call(zoom.transform, d3.zoomIdentity);
-              });
+    function resetZoom(){
+      // d3.select("button")
+      //           .on("click", () =>{
+      //             // Apply the transform:                                               // Create an identity transform
+                  container.transition()
+                      .duration(750)
+                      .call(zoom.transform, d3.zoomIdentity);
+                // });
+        };
     var zoom = d3.zoom()
       .scaleExtent([1, 8])
       .on('zoom', function(event) {
@@ -365,7 +366,7 @@
   
     
   </script>
-  <button id="reset">reset</button>
+  <button id="reset" onclick ="resetZoom();">reset</button>
   <div style="text-align:center;">
     <p>難民數據來源：<a href="https://www.kaggle.com/code/stansilas/refugee-analysis/data?select=asylum_seekers_monthly.csv">https://www.kaggle.com/code/stansilas/refugee-analysis/data?select=asylum_seekers_monthly.csv</a></p>
   </div>
