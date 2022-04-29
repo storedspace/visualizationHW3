@@ -1,178 +1,173 @@
 <!DOCTYPE html>
 
 <head>
-    <div style="text-align:center;">
-      <font face="微軟正黑體" font color=#003D79>
-         <h1><b>阿富汗難民逃難目的地分析</b></h1>
-      </font>
-    </div>
-    
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>03_HW3</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="./CSS/w3.css">
-    <link rel="stylesheet" href="./CSS/w3-theme-black.css">
-    <link rel="stylesheet" href="./CSS/font-awesome.min.css">
-    <style type="text/css">
-    #text-tool-caret {
-        animation-name: caretBlink;
-        animation-iteration-count: infinite;
-        animation-timing-function: cubic-bezier(1.0, 0, 0, 1.0);
-        animation-duration: 1s;
-    }
+  <div style="text-align:center;">
+    <font face="微軟正黑體" font color=#003D79>
+       <h1><b>阿富汗難民逃難目的地分析</b></h1>
+    </font>
+  </div>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>03_HW3</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="./CSS/w3.css">
+  <link rel="stylesheet" href="./CSS/w3-theme-black.css">
+  <link rel="stylesheet" href="./CSS/font-awesome.min.css">
+  <style type="text/css">
+  #text-tool-caret {
+    animation-name: caretBlink;
+    animation-iteration-count: infinite;
+    animation-timing-function: cubic-bezier(1.0, 0, 0, 1.0);
+    animation-duration: 1s;
+  }
 
-    #en-markup-loading-spinner img {
-        position: relative;
-        top: 0px;
-        left: 0px;
-        animation-name: rotateSpinner;
-        animation-duration: 0.6s;
-        animation-iteration-count: infinite;
-        animation-timing-function: linear;
-    }
-    </style>
-    <style type="text/css">
-    /* Copyright 2014-present Evernote Corporation. All rights reserved. */
-    
-    .w3-card-2 {
+  #en-markup-loading-spinner img {
+    position: relative;
+    top: 0px;
+    left: 0px;
+    animation-name: rotateSpinner;
+    animation-duration: 0.6s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+  }
+  </style>
+  <style type="text/css">
+  /* Copyright 2014-present Evernote Corporation. All rights reserved. */
+
+  .w3-card-2 {
       height: 600px;
     }
 
-    .skitchToastBoxContainer {
-        position: absolute;
-        width: 100%;
-        text-align: center;
-        top: 30px;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        pointer-events: none;
-    }
+  .skitchToastBoxContainer {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    top: 30px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    pointer-events: none;
+  }
 
-    .lang-zh-cn .skitchToastBox {
-        font-family: '微軟雅黑', 'Microsoft YaHei', SimSun,
-            '&#x30E1;&#x30A4;&#x30EA;&#x30AA;', Meiryo, 'MS PGothic', 'Soleil',
-            Helvetica, Arial, sans-serif;
-    }
+  .lang-zh-cn .skitchToastBox {
+    font-family: '微軟雅黑', 'Microsoft YaHei', SimSun, '&#x30E1;&#x30A4;&#x30EA;&#x30AA;', Meiryo, 'MS PGothic', 'Soleil', Helvetica, Arial, sans-serif;
+  }
 
-    .skitchToast {
-        padding-left: 20px;
-        padding-right: 20px;
-        display: inline-block;
-        height: 10px;
-        color: #f1f5f8;
-        text-align: center;
-    }
+  .skitchToast {
+    padding-left: 20px;
+    padding-right: 20px;
+    display: inline-block;
+    height: 10px;
+    color: #f1f5f8;
+    text-align: center;
+  }
 
-    .skitchVisible {
-        /* Don't remove this class it's a hack used by the Evernote Clipper */
-    }
+  .skitchVisible {
+      /* Don't remove this class it's a hack used by the Evernote Clipper */
+  }
 
-    ul.w3-navbar {
-        display: table;
-        margin: 0 auto;
-    }
-    </style>
+  ul.w3-navbar {
+      display: table;
+      margin: 0 auto;
+  }
+  </style>
+
 </head>
 <!-- Load d3.js -->
 <script src="https://d3js.org/d3.v6.js"></script>
+
 <style>
-#colourExplain {
+  #colourExplain {
     text-align: left;
     margin: 10px;
-}
+  }
 
-#blue0 {
+  #blue0 {
     width: 20px;
     height: 20px;
     background-color: #eff3ff;
     display: inline-block;
     border: 1px solid black;
     vertical-align: text-bottom;
-}
+  }
 
-#blue1 {
+  #blue1 {
     width: 20px;
     height: 20px;
     background-color: #c6dbef;
     display: inline-block;
     border: 1px solid black;
     vertical-align: text-bottom;
-}
+  }
 
-#blue2 {
+  #blue2 {
     width: 20px;
     height: 20px;
     background-color: #9ecae1;
     display: inline-block;
     border: 1px solid black;
     vertical-align: text-bottom;
-}
+  }
 
-#blue3 {
+  #blue3 {
     width: 20px;
     height: 20px;
     background-color: #6baed6;
     display: inline-block;
     border: 1px solid black;
     vertical-align: text-bottom;
-}
+  }
 
-#blue4 {
+  #blue4 {
     width: 20px;
     height: 20px;
     background-color: #3182bd;
     display: inline-block;
     border: 1px solid black;
     vertical-align: text-bottom;
-}
+  }
 
-#blue5 {
+  #blue5 {
     width: 20px;
     height: 20px;
     background-color: #08519c;
     display: inline-block;
     border: 1px solid black;
     vertical-align: text-bottom;
-}
+  }
 
-#route {
+  #route {
     width: 20px;
     height: 20px;
     background-color: #FFAA33;
     display: inline-block;
     border: 1px solid black;
     vertical-align: text-bottom;
-}
+  
+  }
 </style>
 
 <body>
-    <br><br>
-    <div class="w3-row-padding ">
-        <div class="w3-half">
-            <div class="w3-card-2" style="text-align:center;">
-                <img src="./CSS/news.jpg" alt="Car" style="width:80%">
-                <p>新聞來源：<a href="https://www.bbc.com/zhongwen/trad/world-58306330.amp">https://www.bbc.com/zhongwen/trad/world-58306330.amp</a></p>
-            </div>
-        </div>
-        <div class="w3-half">
-            <div class="w3-card-2">
-                <!-- <img src="./CSS/img_car.jpg" alt="Car" style="width:100%"> -->
-                <div class="w3-container" style="font-size:18px;">
-                    <div class="w3-container w3-center w3-blue-grey">
-                        <h2>Analyze</h2>
-                    </div>
-                    <ol>
-                        <li>因為不同國家收留的難民數量差異很大，導致長條圖的最大值會讓軸的間距太大，收留數量少的國家無法精確地指出人數</li>
-                        <br>
-                        <li>這張圖是長條圖，卻沒說明上面的數字代表人數(橫軸沒有單位呈現)</li>
-                        <br>
-                        <li>阿富汗的難民事實上不只逃往這些國家，長條圖不僅無法列出所有難民逃往的國家，也沒有空間感，在視覺上無法輕易地看出逃亡方向</li>
-                        <br>
-                        <li>有些新聞媒體漸漸開始轉型做付費的深度報導，阿富汗難民的問題事實上一直存在著，如果要做深度報導，分析他們動向的趨勢必須要是長期，而在過往，即時新聞往往只在「難民問題」為熱潮時才會關心他們的去向，所以無法看出阿富汗難民在長期下可能一些外在因素，導致逃亡路線的改變或趨勢。</li>
-                    </ol>
-                </div>
-
-            </div>
+  <br><br>
+  <div class="w3-row-padding ">
+    <div class="w3-half">
+      <div class="w3-card-2" style="text-align:center;">
+        <img src="./CSS/news.jpg" alt="Car" style="width:80%">
+        <p>新聞來源：<a href="https://www.bbc.com/zhongwen/trad/world-58306330.amp">https://www.bbc.com/zhongwen/trad/world-58306330.amp</a></p><br>
+      </div>
+    </div>
+    <div class="w3-half">
+      <div class="w3-card-2">
+        <!-- <img src="./CSS/img_car.jpg" alt="Car" style="width:100%"> -->
+        <div class="w3-container" style="font-size:18px;">
+          <div class="w3-container w3-center w3-blue-grey">
+            <h2>分析與問題</h2>
+          </div>
+          <ol>
+            <li>因為不同國家收留的難民數量差異很大，導致長條圖的最大值會讓軸的間距太大，收留數量少的國家無法精確地指出人數</li><br>
+            <li>左圖是原本新聞呈現的長條圖，沒有說明上面的數字代表人數（橫軸沒有單位呈現）</li><br>
+            <li>阿富汗的難民事實上不只逃往這些國家，長條圖不僅無法列出所有難民逃往的國家，也沒有空間感，在視覺上無法輕易地看出逃亡方向</li><br>
+            <li>有些新聞媒體漸漸地開始轉型做付費的深度報導，阿富汗難民的問題事實上一直存在著，如果要做深度報導，分析他們動向的趨勢必須要是長期追蹤，而在過往，即時新聞往往只在「難民問題」為熱潮時才會關心他們的去向，所以無法看出阿富汗難民在長期下，可能因一些外在因素影響逃亡路線的趨勢或改變。</li><br><br><br><br>
+          </ol>
         </div>
       </div>
     </div>
@@ -182,207 +177,215 @@
       <header class="w3-container w3-blue-grey w3-center">
         <h2>修正版：阿富汗難民各年度逃難目的地</h2>
       </header>
+
       <div class="w3-card-3">
-          <ul class="w3-navbar" style="background-color: black;">
-            <li><a class="w3-btn testbtn" onclick="CheckYear(1999);">1999</button></a></li>
-            <li><a class="w3-btn testbtn" onclick="CheckYear(2000);">2000</button></a></li>
-            <li><a class="w3-btn testbtn" onclick="CheckYear(2001);">2001</button></a></li>
-            <li><a class="w3-btn testbtn" onclick="CheckYear(2002);">2002</button></a></li>
-            <li><a class="w3-btn testbtn" onclick="CheckYear(2003);">2003</button></a></li>
-            <li><a class="w3-btn testbtn" onclick="CheckYear(2004);">2004</button></a></li>
-            <li><a class="w3-btn testbtn" onclick="CheckYear(2005);">2005</button></a></li>
-            <li><a class="w3-btn testbtn" onclick="CheckYear(2006);">2006</button></a></li>
-            <li><a class="w3-btn testbtn" onclick="CheckYear(2007);">2007</button></a></li>
-            <li><a class="w3-btn testbtn" onclick="CheckYear(2008);">2008</button></a></li>
-            <li><a class="w3-btn testbtn" onclick="CheckYear(2009);">2009</button></a></li>
-            <li><a class="w3-btn testbtn" onclick="CheckYear(2010);">2010</button></a></li>
-            <li><a class="w3-btn testbtn" onclick="CheckYear(2011);">2011</button></a></li>
-            <li><a class="w3-btn testbtn" onclick="CheckYear(2012);">2012</button></a></li>
-            <li><a class="w3-btn testbtn" onclick="CheckYear(2013);">2013</button></a></li>
-            <li><a class="w3-btn testbtn" onclick="CheckYear(2014);">2014</button></a></li>
-            <li><a class="w3-btn testbtn" onclick="CheckYear(2015);">2015</button></a></li>
-            <li><a class="w3-btn testbtn" onclick="CheckYear(2016);">2016</button></a></li>
-            <li><a class="w3-btn testbtn" onclick="CheckYear(2017);">2017</button></a></li>
-            <!-- Create legend of number of refugee migration -->
-            <font face="微軟正黑體">
-              <br><br>
-              <h3 class="w3-left" style="color:white;">&nbsp;圖例</h3><br><br>
-              <div id="colourExplain">
-                  <div id="blue0"></div>
-                  <span style="color:white;">：10人 </span>
-                  <div id="blue1"></div>
-                  <span style="color:white;">：120人 </span>
-                  <div id="blue2"></div>
-                  <span style="color:white;">：300人 </span>
-                  <div id="blue3"></div>
-                  <span style="color:white;">：550人 </span>
-                  <div id="blue4"></div>
-                  <span style="color:white;">：700人 </span>
-                  <div id="blue5"></div>
-                  <span style="color:white;">：1000人 以上</span><br>
-                  <div id="route"></div>
-                  <span style="color:white;">：難民的遷移路線</span>
-              </div>
-            </font>
-            <!-- Create an element where the map will take place -->
-            <svg id="my_dataviz" width="1400" height="850"></svg>
+        <ul class="w3-navbar" style="background-color: black;">
+          <li><a class="w3-btn testbtn" onclick="CheckYear(1999);">1999</button></a></li>
+          <li><a class="w3-btn testbtn" onclick="CheckYear(2000);">2000</button></a></li>
+          <li><a class="w3-btn testbtn" onclick="CheckYear(2001);">2001</button></a></li>
+          <li><a class="w3-btn testbtn" onclick="CheckYear(2002);">2002</button></a></li>
+          <li><a class="w3-btn testbtn" onclick="CheckYear(2003);">2003</button></a></li>
+          <li><a class="w3-btn testbtn" onclick="CheckYear(2004);">2004</button></a></li>
+          <li><a class="w3-btn testbtn" onclick="CheckYear(2005);">2005</button></a></li>
+          <li><a class="w3-btn testbtn" onclick="CheckYear(2006);">2006</button></a></li>
+          <li><a class="w3-btn testbtn" onclick="CheckYear(2007);">2007</button></a></li>
+          <li><a class="w3-btn testbtn" onclick="CheckYear(2008);">2008</button></a></li>
+          <li><a class="w3-btn testbtn" onclick="CheckYear(2009);">2009</button></a></li>
+          <li><a class="w3-btn testbtn" onclick="CheckYear(2010);">2010</button></a></li>
+          <li><a class="w3-btn testbtn" onclick="CheckYear(2011);">2011</button></a></li>
+          <li><a class="w3-btn testbtn" onclick="CheckYear(2012);">2012</button></a></li>
+          <li><a class="w3-btn testbtn" onclick="CheckYear(2013);">2013</button></a></li>
+          <li><a class="w3-btn testbtn" onclick="CheckYear(2014);">2014</button></a></li>
+          <li><a class="w3-btn testbtn" onclick="CheckYear(2015);">2015</button></a></li>
+          <li><a class="w3-btn testbtn" onclick="CheckYear(2016);">2016</button></a></li>
+          <li><a class="w3-btn testbtn" onclick="CheckYear(2017);">2017</button></a></li>
+          <!-- Create legend of number of refugee migration -->
+          <font face="微軟正黑體">
+            <br><br>
+            <h3 class="w3-left" style="color:white;">&nbsp;圖例</h3><br><br>
+            <div id="colourExplain">
+                <div id="blue0"></div>
+                <span style="color:white;">：10人 </span>
+                <div id="blue1"></div>
+                <span style="color:white;">：120人 </span>
+                <div id="blue2"></div>
+                <span style="color:white;">：300人 </span>
+                <div id="blue3"></div>
+                <span style="color:white;">：550人 </span>
+                <div id="blue4"></div>
+                <span style="color:white;">：700人 </span>
+                <div id="blue5"></div>
+                <span style="color:white;">：1000人 以上</span><br>
+                <div id="route"></div>
+                <span style="color:white;">：難民的遷移路線</span>
+            </div>
+          </font>
+
+          <!-- Create an element where the map will take place -->
+          <svg id="my_dataviz" width="1400" height="850"></svg>
         </ul>
       </div>
     </div>
+
     <script>
     // The svg
     const svg = d3.select("svg"),
-        width = +svg.attr("width"),
-        height = +svg.attr("height");
+      width = +svg.attr("width"),
+      height = +svg.attr("height");
 
     // Map and projection
     const projection = d3.geoMercator()
-        .scale(190)
-        .translate([width / 2, height / 2 * 1.36])
+      .scale(190)
+      .translate([width / 2, height / 2 * 1.36])
 
     // A path generator
     const path = d3.geoPath()
-        .projection(projection)
+      .projection(projection)
 
     // Data and color scale
     const ColorData = new Map();
     const colorScale = d3.scaleThreshold()
-        .domain([10, 120, 300, 550, 700, 1000])
-        .range(d3.schemeBlues[7]);
+      .domain([10, 120, 300, 550, 700, 1000])
+      .range(d3.schemeBlues[7]);
 
     // group the map and lines
     var container = svg.append('g');
 
     // Create tooltip
     const tooltip = d3.select("body")
-        .append("div")
-        .attr("class", "tooltip")
-        .style("opacity", 0)
-        .style("background-color", "#ECFFFF")
-        .style("border", "solid")
-        .style("border-width", "2px")
-        .style("border-radius", "5px")
-        .style("padding", "10px")
-        .style("position", "absolute")
-        .style("font-family", "Microsoft JhengHei");
+      .append("div")
+      .attr("class", "tooltip")
+      .style("opacity", 0)
+      .style("background-color", "#ECFFFF")
+      .style("border", "solid")
+      .style("border-width", "2px")
+      .style("border-radius", "5px")
+      .style("padding", "10px")
+      .style("position", "absolute")
+      .style("font-family", "Microsoft JhengHei");
 
     const Country = new Map();
 
     // Load world shape AND list of connection
     function CheckYear(EnterYear) {
-        Promise.all([
-            d3.json("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson"), // World shape
-            d3.csv("https://raw.githubusercontent.com/storedspace/visualizationHW3/master/Afghanistan.csv") // Position of circles
-        ]).then(function(initialize) {
+      Promise.all([
+        d3.json("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson"), // World shape
+        d3.csv("https://raw.githubusercontent.com/storedspace/visualizationHW3/master/Afghanistan.csv") // Position of circles
+      ]).then(function(initialize) {
 
-            var NowYear = EnterYear;
-            let dataGeo = initialize[0]; //map
-            let data = initialize[1]; //line
+        var NowYear = EnterYear;
+        let dataGeo = initialize[0]; //map
+        let data = initialize[1]; //line
 
-            // Reformat the list of link.
-            const link = []
-            data.forEach(function(row) {
-                if (row.Year == NowYear) {
-                    source = [67.709953, 33.93911]
-                    target = [+row.Longitude, +row.Latitude]
-                    topush = { type: "LineString", coordinates: [source, target], total: row.Total }
-                    link.push(topush)
-                    // Set color with population
-                    ColorData.set(row.code, +row.Total)
-                    Country.set(row.code, row.Destination)
-                }
-            });
+        // Reformat the list of link.
+        const link = []
+        data.forEach(function(row) {
+          if (row.Year == NowYear) {
+              source = [67.709953, 33.93911]
+              target = [+row.Longitude, +row.Latitude]
+              topush = { type: "LineString", coordinates: [source, target], total: row.Total }
+              link.push(topush)
+              // Set color with population
+              ColorData.set(row.code, +row.Total)
+              Country.set(row.code, row.Destination)
+          }
+        });
 
-            let mouseOver = function(d, i) {
-                if (typeof(Country.get(i.id)) != "undefined") {
-                    d3.selectAll(".Country")
-                        .transition()
-                        .duration(100)
-                        .style("opacity", .5);
-                    d3.select(this)
-                        .transition()
-                        .duration(100)
-                        .style("opacity", 1)
-                        .style("stroke", "black");
-                    tooltip
-                        .transition()
-                        .duration(200)
-                        .style("opacity", 1);
-                    tooltip
-                        .style("left", event.pageX - 50 + "px")
-                        .style("top", event.pageY - 70 + "px")
-                        .html("西元" + NowYear + "年</br>逃到" + (Country.get(i.id)) + "的阿富汗難民人數有" + (ColorData.get(i.id) || 0) + "人");
-                }
-            };
-
-            let mouseLeave = function(d) {
-                d3.selectAll(".Country")
-                    .transition()
-                    .duration(100)
-                    .style("opacity", .8);
-                d3.select(this)
-                    .transition()
-                    .duration(100)
-                    .style("stroke", "transparent");
-            };
-
-            let mouseOut = function(d) {
-                tooltip
-                    .style("opacity", 0);
+        let mouseOver = function(d, i) {
+          if (typeof(Country.get(i.id)) != "undefined") {
+            d3.selectAll(".Country")
+                .transition()
+                .duration(100)
+                .style("opacity", .5);
+            d3.select(this)
+                .transition()
+                .duration(100)
+                .style("opacity", 1)
+                .style("stroke", "black");
+            tooltip
+                .transition()
+                .duration(200)
+                .style("opacity", 1);
+            tooltip
+                .style("left", event.pageX - 50 + "px")
+                .style("top", event.pageY - 70 + "px")
+                .html("西元" + NowYear + "年</br>逃到" + (Country.get(i.id)) + "的阿富汗難民人數有" + (ColorData.get(i.id) || 0) + "人");
             }
+        };
 
-            // Draw the map
-            container
-                .selectAll("path")
-                .data(dataGeo.features)
-                .join("path")
-                .attr("fill", "#b8b8b8")
-                .attr("d", d3.geoPath()
-                    .projection(projection)
-                )
-                .style("stroke", "black")
-                .style("stroke-width", 0)
-                .attr("class", function(d) {
-                    return "Country"
-                })
-                // set the color of each country
-                .attr("fill", function(d) {
-                    d.total = ColorData.get(d.id) || 0;
-                    return colorScale(d.total);
-                })
-                //.style("stroke", "transparent")
-                .style("opacity", .8)
-                .on("mouseover", mouseOver)
-                .on("mouseleave", mouseLeave)
-                .on("mouseout", mouseOut);
+        let mouseLeave = function(d) {
+          d3.selectAll(".Country")
+            .transition()
+            .duration(100)
+            .style("opacity", .8);
+          d3.select(this)
+            .transition()
+            .duration(100)
+            .style("stroke", "transparent");
+        };
 
-            // Add the path
-            container
-                .selectAll("myPath")
-                .data(link)
-                .join("path")
-                .attr("d", function(d) { return path(d) })
-                .style("fill", "none")
-                .style("stroke", "#FFAA33")
-                // .style("stroke", "#003049")
-                // .style("stroke-opacity", function(d) { return (d.total * 0.001); })
-                // .style("stroke-width", function(d) { return (d.total * 0.001); })
-                .style("stroke-width", 2);
-        })
+        let mouseOut = function(d) {
+          tooltip
+            .style("opacity", 0);
+        }
+
+        // Draw the map
+        container
+          .selectAll("path")
+          .data(dataGeo.features)
+          .join("path")
+          .attr("fill", "#b8b8b8")
+          .attr("d", d3.geoPath()
+              .projection(projection)
+          )
+          .style("stroke", "black")
+          .style("stroke-width", 0)
+          .attr("class", function(d) {
+              return "Country"
+          })
+          // set the color of each country
+          .attr("fill", function(d) {
+              d.total = ColorData.get(d.id) || 0;
+              return colorScale(d.total);
+          })
+          //.style("stroke", "transparent")
+          .style("opacity", .8)
+          .on("mouseover", mouseOver)
+          .on("mouseleave", mouseLeave)
+          .on("mouseout", mouseOut);
+
+        // Add the path
+        container
+          .selectAll("myPath")
+          .data(link)
+          .join("path")
+          .attr("d", function(d) { return path(d) })
+          .style("fill", "none")
+          .style("stroke", "#FFAA33")
+          // .style("stroke", "#003049")
+          // .style("stroke-opacity", function(d) { return (d.total * 0.001); })
+          // .style("stroke-width", function(d) { return (d.total * 0.001); })
+          .style("stroke-width", 2);
+      })
     }
 
     var zoom = d3.zoom()
-        .scaleExtent([1, 8])
-        .on('zoom', function(event) {
-            container.selectAll('path')
-                .attr('transform', event.transform);
-        });
+      .scaleExtent([1, 8])
+      .on('zoom', function(event) {
+        container
+          .selectAll('path')
+          .attr('transform', event.transform);
+      }
+    );
     //svg.call(zoom);
 
     // Initialize the plot
     CheckYear(1999);
+
     </script>
+
     <div style="text-align:center;">
         <p>難民數據來源：<a href="https://www.kaggle.com/code/stansilas/refugee-analysis/data?select=asylum_seekers_monthly.csv">https://www.kaggle.com/code/stansilas/refugee-analysis/data?select=asylum_seekers_monthly.csv</a></p>
     </div>
+
 </body>
