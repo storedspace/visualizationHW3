@@ -377,7 +377,7 @@
           .attr('transform', event.transform);
       }
     );
-    //svg.call(zoom);
+    svg.call(zoom).on("wheelzoom", null);
 
     // Initialize the plot
     CheckYear(1999);
