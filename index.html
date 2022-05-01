@@ -324,8 +324,8 @@
                 .duration(200)
                 .style("opacity", 1);
             tooltip
-                .style("left", event.pageX - 50 + "px")
-                .style("top", event.pageY - 70 + "px")
+                .style("left", event.pageX + "px")
+                .style("top", event.pageY - 120 + "px")
                 .html("西元" + NowYear + "年</br>逃到" + (Country.get(i.id)) + "的阿富汗難民人數有" + (ColorData.get(i.id) || 0) + "人");
             }
         };
